@@ -1,232 +1,141 @@
-import React, { Component } from 'react'
-import {
-    StyleSheet,
-    SafeAreaView,
-    View,
-    Text,
-    Image,
-    TextInput,
-    ScrollView
-} from 'react-native';
+import React,{Component} from 'react';
+import {  StyleSheet,  View,  Text,  Image,  TextInput,  ScrollView,  FlatList,  Dimensions} from 'react-native';
 
+const {width} = Dimensions.get('window');
+
+let data = [];
+for(var i =0;i<6;i++){
+    if(i%2 ===0){
+    data.push({
+        title:"Oishi/上好佳玉米卷20包膨化休闲食品Oisihi/上好佳",
+        price:'36.00',
+        source:'./assets/shj1.png',
+        key:i});
+    }else{
+    data.push({
+        title:"Oishi/上好佳玉米卷20包膨化休闲食品Oisihi/上好佳",
+        price:'36.00',
+        source:'./assets/shj2.png',
+        key:i});
+    }
+}
 const styles = StyleSheet.create({
     box:{
-        backgroundColor:"#ffffff",
-        color:'grey',
-        width:"20%",
-        height:60,
-        fontSize:18,
-        borderBottomWidth:1,
-        borderBottomColor:'lightgrey',
-        paddingTop:'3%',
-        paddingLeft:"6%"
+        width:width,
+        backgroundColor:'#eeeeee',
     },
-    box1:{
-        backgroundColor:"#ffffff",
-        color:'orange',
-        width:"20%",
+    search:{
+        width:width,
         height:60,
-        fontSize:18,
+        backgroundColor:'#fff',
+        flexDirection:'row',
+        justifyContent:'center',
+        alignItems:'center',
         borderBottomWidth:1,
-        borderBottomColor:'lightgrey',
-        paddingTop:'3%',
-        paddingLeft:"6%"
+        borderBottomColor:'#e8e8e8' 
     },
-    box2:{
-        height:30,
+    sousuolan:{
+        width:0.9*width,
+        height:40,
+        backgroundColor:'#eeeeee',
+        borderRadius:5,
+        position:'relative',
+    },
+    list:{
+        height:50,
+        backgroundColor:'#fff'
+    },
+    first:{
+        width:80,
+        marginLeft:20,
         color:"red",
-        paddingTop:10
+        fontSize:16,
+        justifyContent:'center',
+        marginTop:10
+    },
+    next:{
+        width:80,
+        marginLeft:20,
+        fontSize:16,
+        justifyContent:'center',
+        marginTop:10
+    },
+    slide:{
+        width:0.43 * width,
+        height:0.55*width,
+        backgroundColor:'#fff',
+        marginLeft:20,
+        marginTop:20
+    },
+    title1:{
+        fontSize:14,
+        marginTop:width*0.08,
+        marginLeft:10,
+        color:'gray'
+    },
+    price:{
+        fontSize:14,
+        marginTop:5,
+        color:'red',
+        marginLeft:10,
+    },
+    iimg:{
+        width:30,
+        height:30,
+        position:'absolute',
+        top:10,
+        right:10
+    },
+    img2:{
+        width:width*0.2,
+        height:width*0.2,
+        marginTop:width*0.08,
+        marginLeft:width*0.08
     }
-
 });
-export default class ListXL extends Component {
-    render() {
+const good = () => {
     return (
-        <ScrollView>
-            <SafeAreaView>
-                {/* 导航栏 */}
-                <View style={{
-                    backgroundColor:"ffffff"
-                }}>
-                    {/* 搜索栏 */}
-                    <View style={{
-                        flexDirection:'row',
-                        height:50,
-                        paddingBottom:5,
-                        borderBottomWidth:1,
-                        border: 'solid',
-                        borderBottomColor:'lightgrey'
-                    }}>
-                        <View style={{
-                            position:'relative',
-                            width:'90%',
-                            marginLeft:'5%',
-                            marginTop:"1%",
-                            flexDirection:'row',
-                            borderRadius:5,
-                            backgroundColor:'#eeeeee'
-                        }}>
-                            <TextInput style={{
-                            paddingLeft:10,
-                            color:"grey"
-                            }}
-                            placeholder="请输入商品名称"
-                            placeholderTextColor="grey"
-                            />
-                            <Image style={{
-                                position:'absolute',
-                                width:"5%",
-                                height:"20%",
-                                marginTop:"3%",
-                                right:20
-                                }} 
-                                resizeMode="stretch" 
-                                source={require('../../assets/sousuo.png')} 
-                            />
-                            
-                        </View>
-                    </View>
-                    {/* tab栏*/}
-                    <View style={{
-                        flexDirection:'row',
-                    }}>
-                        <Text style={styles.box1}>综合</Text>
-                        <Text style={styles.box} >销量</Text>
-                        <Text style={styles.box}>新品</Text>
-                        <Text style={styles.box}>价格</Text>
-                        <Text style={styles.box}>信用</Text>
-                    </View>
-                </View>
-                
-                {/* 内容 */}
-                <View style={{
-                    height:1000
-                }}>
-                    <View style={{
-                        flexDirection:'row',
-                        marginTop:15
-                    }}>
-                        <View style={{
-                            backgroundColor:'#ffffff',
-                            width:220,
-                            height:280,
-                            paddingLeft:15,
-                            paddingRight:5,
-                            marginLeft:13,
-                            marginRight:13,
-                        }}>
-                            <Image style={{
-                                width:200,
-                                height:200
-                                }} 
-                                resizeMode="stretch" 
-                                source={require('../../assets/green.png')} 
-                            />
-                            <Text >oishi/上好佳玉米卷20包鹏华休闲食品Oishi/上好佳</Text>
-                            <Text style={styles.box2}>36.00</Text>
-                        </View>
-                        <View style={{
-                            backgroundColor:'#ffffff',
-                            width:220,
-                            height:280,
-                            paddingLeft:15,
-                            paddingRight:5
-                        }}>
-                            <Image style={{
-                                width:200,
-                                height:200
-                                }} 
-                                resizeMode="stretch" 
-                                source={require('../../assets/yellow.png')} 
-                            />
-                            <Text >oishi/上好佳玉米卷20包鹏华休闲食品Oishi/上好佳</Text>
-                            <Text style={styles.box2}>36.00</Text>
-                        </View>
-                    </View>
-                    <View style={{
-                        flexDirection:'row',
-                        marginTop:15
-                    }}>
-                        <View style={{
-                            backgroundColor:'#ffffff',
-                            width:220,
-                            height:280,
-                            paddingLeft:15,
-                            paddingRight:5,
-                            marginLeft:13,
-                            marginRight:13,
-                        }}>
-                            <Image style={{
-                                width:200,
-                                height:200
-                                }} 
-                                resizeMode="stretch" 
-                                source={require('../../assets/green.png')} 
-                            />
-                            <Text >oishi/上好佳玉米卷20包鹏华休闲食品Oishi/上好佳</Text>
-                            <Text style={styles.box2}>36.00</Text>
-                        </View>
-                        <View style={{
-                            backgroundColor:'#ffffff',
-                            width:220,
-                            height:280,
-                            paddingLeft:15,
-                            paddingRight:5
-                        }}>
-                            <Image style={{
-                                width:200,
-                                height:200
-                                }} 
-                                resizeMode="stretch" 
-                                source={require('../../assets/yellow.png')} 
-                            />
-                            <Text >oishi/上好佳玉米卷20包鹏华休闲食品Oishi/上好佳</Text>
-                            <Text style={styles.box2}>36.00</Text>
-                        </View>
-                    </View>
-                    <View style={{
-                        flexDirection:'row',
-                        marginTop:15,
-                    }}>
-                        <View style={{
-                            backgroundColor:'#ffffff',
-                            width:220,
-                            height:280,
-                            paddingLeft:15,
-                            paddingRight:5,
-                            marginLeft:13,
-                            marginRight:13,
-                        }}>
-                            <Image style={{
-                                width:200,
-                                height:200
-                                }} 
-                                resizeMode="stretch" 
-                                source={require('../../assets/green.png')} 
-                            />
-                            <Text >oishi/上好佳玉米卷20包鹏华休闲食品Oishi/上好佳</Text>
-                            <Text style={styles.box2}>36.00</Text>
-                        </View>
-                        <View style={{
-                            backgroundColor:'#ffffff',
-                            width:220,
-                            height:280,
-                            paddingLeft:15,
-                            paddingRight:5
-                        }}>
-                            <Image style={{
-                                width:200,
-                                height:200
-                                }} 
-                                resizeMode="stretch" 
-                                source={require('../../assets/yellow.png')} 
-                            />
-                            <Text >oishi/上好佳玉米卷20包鹏华休闲食品Oishi/上好佳</Text>
-                            <Text style={styles.box2}>36.00</Text>
-                        </View>
-                    </View>
-                </View>
-            </SafeAreaView>
+    <View>
+        <View style={styles.search}>
+            <View style={styles.sousuolan}>
+                <TextInput 
+                placeholder="请输入商品名称"
+                placeholderTextColor="grey"
+            />
+                <Image style={styles.iimg} source={require('../../assets/sousuo.png')}/>
+            </View>
+         </View>
+        <ScrollView
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+            style={styles.list}
+        >
+            <Text style={styles.first}>综合</Text>
+            <Text style={styles.next}>销量</Text>
+            <Text style={styles.next}>新品</Text>
+            <Text style={styles.next}>综合</Text>
+            <Text style={styles.next}>信用</Text>
         </ScrollView>
-    );
-}}
+        
+        <FlatList 
+            data={data}
+            ListFooterComponent={<View style={{height:width*0.65,width:width}}></View>}
+            numColumns={2}
+            renderItem={
+            ({item})=>
+            <View style={styles.slide}>
+              <Image 
+                style={styles.img2} 
+                source={
+                  (item.key%2) ? require('../../assets/yellow.png'): require('../../assets/green.png')}/>
+              <Text style={styles.title1}>{item.title}</Text>
+              <Text style={styles.price}>{item.price}</Text>
+            </View>
+          }
+        />
+    </View>
+  );
+};
+
+
+export default good;

@@ -16,7 +16,7 @@ export default class Publish extends Component {
         this.getPage(this.state.page)
     }
     getPage=(page)=>{
-        fetch('https://cnodejs.org/api/v1/topics?limit=15&page=' + page)
+        fetch('https://cnodejs.org/api/v1/topics?limit=10&page=' + page)
         .then((res) => res.json())
         .then((res)=>{
             res.data.forEach(item => item.huifu = Math.random() > 0.5 ? 1 : 0);
@@ -73,7 +73,7 @@ export default class Publish extends Component {
                                 lineHeight:35,
                                 paddingLeft:15}
                             }>
-                                { item.title.length > 20 ? item.title.slice(0, 20) + "..." : item.title}
+                                { item.title.length > 10 ? item.title.slice(0, 10) + "..." : item.title}
                             </Text>
                             <Text style={{
                                 lineHeight:35,

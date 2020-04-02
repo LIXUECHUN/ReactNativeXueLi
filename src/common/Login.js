@@ -3,6 +3,7 @@ import { Text, View,TextInput,TouchableOpacity,AsyncStorage,ToastAndroid, Alert 
 import { Actions } from 'react-native-router-flux'
 import { Icon } from '@ant-design/react-native';
 import {myFetch} from '../utils/index';
+
 export default class Login extends Component {
     constructor(){
         super();
@@ -32,7 +33,7 @@ export default class Login extends Component {
                     })
             })
         }else{
-            ToastAndroid.show('请输入用户名密码',ToastAndroid.TOP)
+            ToastAndroid.show('输入不能为空！',ToastAndroid.TOP)
         }
         
     }
@@ -40,7 +41,7 @@ export default class Login extends Component {
         return (
             <View style={{flex:1,justifyContent:'center'}}>
                 <View style={{alignItems:'center'}}>
-                    <Text style={{fontSize:20,marginBottom:40}}>登录/注册</Text>
+                    <Text style={{fontSize:20,marginBottom:40}}>登录</Text>
                     <View style={{
                         width:'80%',
                         marginRight:10,
@@ -93,18 +94,12 @@ export default class Login extends Component {
                             justifyContent:'center'
                         }}
                         onPress={()=>Actions.register()}>
-                        <Text>立即注册</Text>
+                        <Text>还没有账号？立即注册</Text>
                     </TouchableOpacity>
                 </View>
                 {
-                    // this.state.isloading
-                    // ? ToastAndroid.show('>>>正在登录>>>',ToastAndroid.SHORT)
-                    // :null
-                    this.state.isloading?
-                    <View>
-                    <Text>正在登录</Text>
-                    <ActivityIndicator size="large" color="black" />
-                    </View>
+                    this.state.isloading
+                    ? ToastAndroid.show('正在登录',ToastAndroid.SHORT)
                     :null
                 }
             </View>

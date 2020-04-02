@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import { Grid, Icon,SearchBar,Carousel} from '@ant-design/react-native';
-import { Text, View ,Image,StyleSheet,TextInput,TextStyle, ViewStyle } from 'react-native'
+import { Text, View ,Image,StyleSheet,TextInput,TextStyle, ViewStyle ,ScrollView} from 'react-native'
 import Input from '@ant-design/react-native/lib/input-item/Input';
 
 export default class Home extends Component{
 
     render() {
         return (
+            <ScrollView>
             <View>
                 {/* 导航栏 */}
                 <View style={styles.dhview}>  
@@ -15,12 +16,12 @@ export default class Home extends Component{
                             name="search" 
                             color = 'white'
                             style={styles.dh_input_icon}
-                            size="lg"  
+                            size="sm"  
                         />
                         <TextInput 
                             style={{
                                 marginTop:4,
-                                fontSize:18,
+                                fontSize:12,
                                 color:"white",
                             }}
                             placeholderTextColor="white"
@@ -31,7 +32,7 @@ export default class Home extends Component{
                         name="shopping-cart" 
                         color = '#ffffff'
                         style={styles.dh_cart}
-                        size="lg" 
+                        size="sm" 
                     />
                 </View> 
                 
@@ -119,6 +120,7 @@ export default class Home extends Component{
                     <Text style={styles.butte}>发布需求</Text>
                 </View>
             </View>
+        </ScrollView>
         )
     }
 }

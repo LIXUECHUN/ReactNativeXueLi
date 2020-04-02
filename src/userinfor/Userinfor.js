@@ -28,15 +28,14 @@ const data2 = [
     {icon:<Icon name="heart"  />,text:'我的住宿优惠'},
     {icon:<Icon name="flag"  />,text:'我的活动'},
 ]
-// 拍照
-const options = {
-    title: 'Select Avatar',
-    customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
-    storageOptions: {
-        skipBackup: true,
-        path: 'images',
-    },
-};
+// const options = {
+//     title: 'Select Avatar',
+//     customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
+//     storageOptions: {
+//         skipBackup: true,
+//         path: 'images',
+//     },
+// };
 export default class Userinfor extends Component{
     constructor(){
         super();
@@ -126,7 +125,7 @@ export default class Userinfor extends Component{
                         width:'80%',
                         marginLeft:'10%',
                         marginBottom:50,
-                        paddingLeft:169,
+                        paddingLeft:'43%',
                         marginTop:20,
                         paddingTop:8,
                         borderRadius:50,

@@ -1,25 +1,24 @@
 import React,{useState,useEffect} from 'react';
 import {StyleSheet,View,Text,BackHandler,ToastAndroid,AsyncStorage} from 'react-native';
-import {Router,Overlay,Scene,Tabs,Drawer,Lightbox,Modal,Actions} from 'react-native-router-flux';
-import {Icon} from '@ant-design/react-native';
+
+import {Router, Overlay, Scene, Tabs, Drawer, Lightbox, Modal, Actions} from 'react-native-router-flux';
+import { Icon } from '@ant-design/react-native';
 import SplashScreen from 'react-native-splash-screen';
 import Home from './src/home/Home';
 import Goods from './src/goods/Goods';
-import User from './src/userinfor/Userinfor';
-import Publish from './src/userinfor/Publish';
 import Login from './src/common/Login'
-import SwiperPage from './src/common/SwiperPage';
+import User from './src/userinfor/Userinfor';
+import Userinfor from './src/userinfor/Userinfor';
 import Register from './src/common/Register';
+import Publish from './src/userinfor/Publish';
+import SwiperPage from './src/common/SwiperPage';
 
 console.disableYellowBox = true;
 
-const rootUrl = 'https://www.fastmock.site/mock/d62556e52d1f5c0d4c71881c01c91850/api';
-// 集中定义组件样式
-const styles = StyleSheet.create({ 
+const rootUrl = 'https://www.fastmock.site/mock/65721c49c01f167ea082d0dc81fb0c41/api';
 
-});
 const App = () => {
-    let [isLogin,setLogin] = useState(false);
+	let [isLogin,setLogin] = useState(false);
     let [isInstall,setInstall] = useState(true);
 
     // 实现Tabs 
@@ -32,7 +31,7 @@ const App = () => {
                     setInstall(false);
                 }
             })
-        // AsyncStorage.clear()
+
         AsyncStorage.getItem('user')
             .then(res=>{
                 let user = JSON.parse(res)
@@ -53,63 +52,76 @@ const App = () => {
         console.log('after install');
         setInstall(false)
     }
-    // if(isInstall){
-    //     return <View style={{flex:1}}>
-    //         <SwiperPage afterInstall = {afterInstall}/>
-    //     </View>
-    // }
-
+    if(isInstall){
+        return <View style={{flex:1}}>
+            <SwiperPage afterInstall = {afterInstall}/>
+        </View>
+    }
 	return (
 		<Router
-            backAndroidHandler={()=>{
-                if(Actions.currentScene != 'home' && Actions.currentScene != 'login'){
-                    Actions.pop();
-                    return true;
-                }
-                else {
-                    if(new Date().getTime()-now<2000){
-                        BackHandler.exitApp();
-                    }else{
-                        ToastAndroid.show('再按一次返回键退出软件',100);
-                        now = new Date().getTime();
-                        return true;
-                    }
-                }
-            }}
-        >
-            <Overlay>
-            <Modal key="modal" hideNavBar>
-                <Lightbox key="lightbox">
-                        <Scene key="root">
-                            <Tabs 
-                                key='tabbar'
-                                hideNavBar
-                                activeTintColor='red'
-                                inactiveTintColor='#979797'
-                                tabBarStyle={{backgroundColor:'#fff'}}
-                            >
-                                {/* 首页 */}
-                                <Scene 
-                                    key='homePage'
-                                    title='首页'
-                                    hideNavBar={true}
+			backAndroidHandler={()=>{
+				if(Actions.currentScene != 'home'){
+					Actions.pop();
+					return true;
+				}else{
+					if(new Date().getTime()-now<2000){
+						BackHandler.exitApp();
+					}else{
+						ToastAndroid.show('再按一次返回键退出软件',100);
+						now = new Date().getTime();
+						return true;
+					}
+				}
+				
+			}}
+		>
+			<Overlay>
+			<Modal key="modal" hideNavBar>
+				<Lightbox key="lightbox">
+					<Drawer 
+						key="drawer"
+						contentComponent={()=><Text>drawer</Text>}
+						drawerIcon={()=><Icon name="menu"/>}
+						drawerWidth={400}
+					>
+						<Scene key="root">
+							<Tabs 
+								key='tabbar'
+								hideNavBar
+								activeTintColor="red"
+								inactiveTintColor="#979797"
+								tabBarStyle={{backgroundColor:'#ffffff'}}
+							>
+								{/* 首页 */}
+								<Scene key='homePage'
+									title='首页'
+									hideDrawerButton
                                     icon={({focused})=>
                                         <Icon 
                                             color={focused?'red':'#979797'} 
                                             name="home"
                                         />}
-                                >
-                                    <Scene key='home' component={Home}/>
-                                </Scene>
-                                {/* 商品分类 */}
-                                <Scene key='goodPage'
-                                    title="商品分类"
                                     hideNavBar={true}
-                                    icon={({focused})=><Icon color={focused?'red':'#979797'} name="appstore"/>}
-                                >
-                                    <Scene key="goods" component={Goods}/>
-                                </Scene>
-                                {/* 用户中心 */}
+								>
+									<Scene key='home' 
+										component={Home}
+									/>
+								</Scene>
+								{/* 商品分类 */}
+								<Scene key='goodsPage'
+									title='商品分类'
+									hideDrawerButton
+                                    icon={({focused})=>
+                                        <Icon 
+                                            color={focused?'red':'#979797'} 
+                                            name="file"
+                                        />}
+                                    hideNavBar={true}
+									
+								>
+									<Scene key="goods" component={Goods}/>
+								</Scene>
+								{/* 用户中心 */}
                                 <Scene 
                                     key='UserPage'
                                     hideDrawerButton
@@ -118,11 +130,10 @@ const App = () => {
                                             color={focused?'red':'#979797'} 
                                             name="user"
                                         />}
-                                        title='个人中心'
-                                        hideNavBar={true}
-                                        
+                                    hideNavBar={true}
+                                    title='个人中心'
                                 >
-                                    <Scene key="user" component={User} />
+                                    <Scene key="userinfor" component={Userinfor} />
                                     <Scene 
                                         key="publish" 
                                         title='我的发布'
@@ -135,14 +146,18 @@ const App = () => {
                                         renderRightButton={()=><Icon color='#fff' name="ellipsis" style={{marginRight:20}}/>}
                                     />
                                 </Scene>
-                            </Tabs>
-                        </Scene>
-                </Lightbox>
-                <Scene key="login" initial={!isLogin} component={Login}/>
+							</Tabs>
+						</Scene>
+					</Drawer>
+				</Lightbox>
+				<Scene key="login" initial={!isLogin} component={Login}/>
+				{/* <Scene key="login" initial={true} component={Login}/> */}
+                
                 <Scene key="register" component={Register}/>
-            </Modal>
-            </Overlay>
-        </Router>
+			</Modal>
+			</Overlay>
+		</Router>
 	);
 };
+
 export default App;

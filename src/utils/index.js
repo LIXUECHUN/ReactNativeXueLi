@@ -1,7 +1,5 @@
-
 import queryString from 'query-string'
-let rootUrl = 'https://www.fastmock.site/mock/65721c49c01f167ea082d0dc81fb0c41/api';
-// let rootUrl = 'https://www.fastmock.site/mock/5ec6e252788014232bb48ba488e4db82/api';
+let rootUrl = 'https://www.fastmock.site/mock/d62556e52d1f5c0d4c71881c01c91850/api'
 
 let myFetch = {
     get(url,queryParams){
@@ -9,8 +7,8 @@ let myFetch = {
         if(queryParams){
             url += "?"+queryString.stringify(queryParams);
         }
-        return fetch(url)
-                .then(res=>res.json())
+        console.log(url);
+        return fetch(url).then(res=>res.json())
     },
     post(url,body){
         return fetch(rootUrl+url,{
@@ -20,10 +18,7 @@ let myFetch = {
                 'Content-Type':'application/json'
             },
             body:JSON.stringify(body)
-        })
-            .then(res=>res.json())
-            
+        }).then(res=>res.json())
     }
 }
-
-export {myFetch};
+export {myFetch}

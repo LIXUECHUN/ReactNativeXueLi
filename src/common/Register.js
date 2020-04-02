@@ -4,66 +4,40 @@ import { Actions } from 'react-native-router-flux'
 import { Icon } from '@ant-design/react-native';
 import {myFetch} from '../utils/index'
 
-const styles = StyleSheet.create({
-    com:{
-        width:'80%',
-        paddingLeft:20,
-        marginRight:10,
-        borderBottomColor:'#ccc',
-        borderBottomWidth:1,
-        flexDirection:'row',
-        alignItems:'center',
-    },
-    btn:{
-        marginTop:30,
-        width:'80%',
-        height:40,
-        backgroundColor:'#ccc',
-        alignItems:'center',
-        justifyContent:'center'
-    }
-})
-
 export default class Register extends Component {
     constructor(){
         super();
         this.state = {
             username:'',
-            email:'',
             pwd:'',
-            isloading:false
         }
     }
-    userhandle=(text)=>{
+    userfun=(text)=>{
         this.setState({username:text})
     }
-    pwdhandle=(text)=>{
+    pwdfun=(text)=>{
         this.setState({pwd:text})
     }
-    emailhandle=(text)=>{
-        this.setState({email:text})
-    }
     register=()=>{
-        if(this.state.username != '' && this.state.pwd != '' && this.state.email != ''){
-            this.setState({isloading:true})
+        
+        if(this.state.username != '' && this.state.pwd != '' ){
+            ToastAndroid.show('注册成功',ToastAndroid.SHORT)
             myFetch.post('/register',{
                 username:this.state.username,
-                email:this.state.email,
                 pwd:this.state.pwd
             }).then(res=>{
-                if(res.data.status == '0000'){
+                console.log(res.data.status)
+                if(res.data.status == '00000'){
                     ToastAndroid.show('账户已存在', ToastAndroid.SHORT)
                 }else{
-                    AsyncStorage.setItem('user',JSON.stringify(res.data))
-                        .then(()=>{
-                            this.setState({isloading:false})
-                            Alert.alert('注册成功');
+                    AsyncStorage.setItem('user',JSON.stringify(res.data)).then(()=>{
+                            ToastAndroid.show('注册成功',ToastAndroid.SHORT)
                             Actions.login();
                         })
                 }
             })
         }else{
-            ToastAndroid.show('输入不能为空！',ToastAndroid.SHORT)
+            ToastAndroid.show('请正确输入',ToastAndroid.SHORT)
         }
     }
     render() {
@@ -71,34 +45,58 @@ export default class Register extends Component {
             <View style={{flex:1,justifyContent:'center'}}>
                 
                 <View style={{alignItems:'center'}}>
-                    <Text style={{fontSize:20,marginBottom:40}}>登录/注册</Text>
-                    <View style={styles.com}>
+                    <Text style={{fontSize:20,marginBottom:40}}>注册</Text>
+                    <View style={{
+                        width:'80%',
+                        marginRight:10,
+                        borderBottomColor:'#ccc',
+                        borderBottomWidth:1,
+                        flexDirection:'row',
+                        alignItems:'center',
+                        paddingLeft:20
+                    }}>
                         <Icon name="user" color='red'/>
                         <TextInput placeholder="用户名"
-                            onChangeText={this.userhandle}
+                            onChangeText={this.userfun}
                         />
                     </View>
-                    <View style={styles.com}>
-                        <Icon name="mail" color='red'/>
-                        <TextInput placeholder="email地址"
-                            onChangeText={this.emailhandle}
-                        />
-                    </View>
-                    <View style={styles.com}>
+                    <View style={{
+                        width:'80%',
+                        marginRight:10,
+                        borderBottomColor:'#ccc',
+                        borderBottomWidth:1,
+                        flexDirection:'row',
+                        alignItems:'center',
+                        paddingLeft:20
+                    }}>
                         <Icon name="user" color='red'/>
                         <TextInput 
                             placeholder="密码"
-                            onChangeText={this.pwdhandle}
+                            onChangeText={this.pwdfun}
                             secureTextEntry={true}
                         />
                     </View>
                     <TouchableOpacity 
-                        style={styles.btn}
+                        style={{
+                            width:'80%',
+                            height:40,
+                            backgroundColor:'#ccc',
+                            marginTop:30,
+                            alignItems:'center',
+                            justifyContent:'center'
+                        }}
                         onPress={this.register}>
                         <Text>注册</Text>
                     </TouchableOpacity>
                     <TouchableOpacity 
-                        style={styles.btn}
+                        style={{
+                            width:'80%',
+                            height:40,
+                            backgroundColor:'#ccc',
+                            marginTop:30,
+                            alignItems:'center',
+                            justifyContent:'center'
+                        }}
                         onPress={()=>Actions.login()}>
                         <Text>返回登录</Text>
                     </TouchableOpacity>
